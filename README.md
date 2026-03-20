@@ -25,7 +25,13 @@ For a deep dive into the system's architecture, Mermaid diagrams, and ISO/C4 sta
 ---
 
 ## 🛠️ Simulation & Deployment
-To test this prototype in a simulated environment, check out our **Docker Container Package** available in the GitHub Packages tab of this repository.
+To instantly deploy and test the multi-node Zero-Trust AI architecture on your local machine, run our single-command simulation installer:
+
+```bash
+curl -sL https://raw.githubusercontent.com/vspatabuga/ai-governance-orchestrator/main/simulate.sh | bash
+```
+
+> **Note:** This requires Docker and Docker Compose to be installed on your system. It will safely orchestrate isolated virtual networks to demonstrate the sovereign infrastructure concept.
 
 ---
 *Standardized by PES AI-Assistant (Gemini CLI)*
