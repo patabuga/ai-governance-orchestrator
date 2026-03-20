@@ -1,0 +1,7 @@
+llama-index-core==0.10.15
+llama-index-llms-ollama==0.1.2
+openinference-instrumentation-llama-index==1.2.0
+opentelemetry-exporter-otlp==1.22.0
+fastapi==0.109.2
+uvicorn==0.27.1
+pydantic==2.6.1

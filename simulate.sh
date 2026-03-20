@@ -32,8 +32,16 @@ echo -e "${NC}"
 # Define workspace
 SIM_DIR="/tmp/vsp-ai-simulation-full"
 echo -e "${YELLOW}>> Initializing Sovereign Perimeter in ${SIM_DIR}...${NC}"
+rm -rf "$SIM_DIR" # Clean up previous runs
 mkdir -p "$SIM_DIR"
 cd "$SIM_DIR"
+
+# Download the actual source code and Dockerfile
+echo -e ">> Downloading Agent Source Code..."
+mkdir -p src
+curl -sL https://raw.githubusercontent.com/vspatabuga/ai-governance-orchestrator/main/src/requirements.txt -o src/requirements.txt
+curl -sL https://raw.githubusercontent.com/vspatabuga/ai-governance-orchestrator/main/src/agent.py -o src/agent.py
+curl -sL https://raw.githubusercontent.com/vspatabuga/ai-governance-orchestrator/main/Dockerfile -o Dockerfile
 
 # ==============================================================================
 # 1. GENERATE DOCKER COMPOSE CONFIGURATION
@@ -88,23 +96,24 @@ services:
       - orchestration_net
 
   openclaw_agent:
-    # Simulating the custom OpenClaw + LlamaIndex Python engine
-    image: python:3.10-slim
+    # Building the actual Python agent from downloaded source code
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: vsp_openclaw
-    command: >
-      bash -c "pip install fastapi uvicorn requests && 
-               echo 'Starting Sovereign Orchestrator... Connected to Ollama and Phoenix.' &&
-               sleep infinity"
     environment:
       # Data flows to Intelligence Layer
       - OLLAMA_URL=http://ollama:11434
       - VECTOR_DB_URL=http://vectordb:6333
       # Audit traces flow to Governance Layer
-      - PHOENIX_COLLECTOR_ENDPOINT=http://phoenix:4317
+      - PHOENIX_COLLECTOR_ENDPOINT=http://phoenix:4317/v1/traces
     networks:
       - orchestration_net
       - intelligence_net
       - governance_net
+    depends_on:
+      - ollama
+      - phoenix
 
   # ==========================================
   # LAYER 3: Intelligence & Memory
@@ -147,9 +156,9 @@ EOF
 echo -e "\n${YELLOW}>> Deploying the 5-Layer Stack via Docker Compose...${NC}"
 # Use docker-compose or docker compose depending on what's installed
 if command -v docker-compose &> /dev/null; then
-    docker-compose up -d
+    docker-compose up --build -d
 else
-    docker compose up -d
+    docker compose up --build -d
 fi
 
 echo -e "\n${GREEN}✔ Sovereign Architecture Successfully Simulated!${NC}"
@@ -159,6 +168,11 @@ echo -e "🔒 Data stores (Ollama & VectorDB) are completely hidden from the hos
 echo -e ""
 echo -e "🌍 ${PURPLE}n8n Automation Engine${NC}:      http://localhost:5678"
 echo -e "📊 ${BLUE}Arize Phoenix Dashboard${NC}:    http://localhost:6006"
+echo -e ""
+echo -e "🚀 ${GREEN}To test the AI Agent, run this in a new terminal:${NC}"
+echo -e "   curl -X POST http://localhost:8080/api/v1/orchestrate \\"
+echo -e "   -H 'Content-Type: application/json' \\"
+echo -e "   -d '{\"prompt\": \"Analyze the privacy risks of public LLMs.\"}'"
 echo -e ""
 echo -e "🛑 To teardown the simulation, run: 'cd $SIM_DIR && docker compose down'"
 echo -e "================================================================================="
