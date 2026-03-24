@@ -1,25 +1,28 @@
 {
-  "name": "@vspatabuga/porto-ai-gov",
-  "version": "1.0.3",
+  "name": "@vspatabuga/sim-ai-gov",
+  "version": "1.0.0",
   "description": "VSP AI Governance Simulation - Private AI Orchestration Stack",
   "type": "module",
   "main": "simulate.sh",
   "bin": {
-    "vsp-porto-ai-gov": "./simulate.sh"
+    "vsp-sim-ai-gov": "./simulate.sh"
   },
   "scripts": {
     "simulate": "bash simulate.sh",
-    "start": "bash simulate.sh",
+    "start": "docker compose -p vsp-ai-gov up -d",
     "stop": "docker compose -p vsp-ai-gov down",
-    "clean": "docker compose -p vsp-ai-gov down -v"
+    "clean": "docker compose -p vsp-ai-gov down -v",
+    "logs": "docker compose -p vsp-ai-gov logs -f"
   },
   "keywords": [
     "vsp",
+    "sim-ai-gov",
     "ai-governance",
     "simulation",
     "sovereign-systems",
     "ollama",
-    "llamaindex"
+    "llamaindex",
+    "n8n"
   ],
   "author": "VSP (Virgiawan Sagarmata Patabuga)",
   "license": "MIT",
@@ -34,6 +37,8 @@
     "simulate.sh",
     "docker-compose.yml",
     "Dockerfile",
-    "src/"
+    "simulation/",
+    "docs/",
+    "README.md"
   ]
 }
