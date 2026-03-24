@@ -1,6 +1,6 @@
 {
   "name": "@vspatabuga/sim-ai-gov",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "VSP AI Governance Simulation - Private AI Orchestration Stack",
   "type": "module",
   "main": "simulate.sh",
