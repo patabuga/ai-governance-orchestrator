@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "AI Governance Orchestrator"
+type: software
+authors:
+  - family-names: Patabuga
+    given-names: Virgiawan Sagarmata
+    affiliation: Patabuga Institute
+    orcid: "https://orcid.org/0009-0003-7843-0919"
+abstract: >
+  Private AI agent orchestration and automated system auditing with strict
+  context isolation and observability. Manages local LLM workflows via
+  OpenClaw, Ollama, and Arize Phoenix.
+license: MIT
+version: "1.0.0"
+date-released: "2026-04-05"
+url: "https://github.com/patabuga/ai-governance-orchestrator"
+repository-code: "https://github.com/patabuga/ai-governance-orchestrator"
+keywords:
+  - ai-governance
+  - llm-orchestration
+  - observability
+  - sovereign-ai
+  - openclaw
+  - ollama
