@@ -1,5 +1,7 @@
 # 🤖 AI Governance Orchestrator
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19427222.svg)](https://doi.org/10.5281/zenodo.19427222)
+
 ## 📌 Project Overview
 **AI Governance Orchestrator** is a specialized engine designed to manage, audit, and secure private AI agents. It serves as the "Command Center" for local intelligence, ensuring that every AI decision is traced, evaluated, and compliant with sovereign security standards.
 
